@@ -51,15 +51,14 @@ verify_checksum() {
 # Check if required commands are available
 check_command curl
 check_command jq
-check_command tmux
 
-# Get the latest version tag from GitHub API
-ver=$(curl -sSL https://api.github.com/repos/jm33-m0/emp3r0r/releases/latest | jq -r .tag_name)
+# Get the latest version tag from GitHub API of your fork
+ver=$(curl -sSL https://api.github.com/repos/jordan4658/emp3r0r/releases/latest | jq -r .tag_name)
 warn "Downloading emp3r0r $ver"
 
-# Get the download URLs for the tarball and sha256 file
-tarball_url=$(curl -sSL https://api.github.com/repos/jm33-m0/emp3r0r/releases/latest | jq -r '.assets[] | select(.name | endswith(".tar.zst")) | .browser_download_url')
-sha256_url=$(curl -sSL https://api.github.com/repos/jm33-m0/emp3r0r/releases/latest | jq -r '.assets[] | select(.name | endswith(".tar.zst.sha256")) | .browser_download_url')
+# Get the download URLs for the tarball and sha256 file from your fork
+tarball_url=$(curl -sSL https://api.github.com/repos/jordan4658/emp3r0r/releases/latest | jq -r '.assets[] | select(.name | endswith(".tar.zst")) | .browser_download_url')
+sha256_url=$(curl -sSL https://api.github.com/repos/jordan4658/emp3r0r/releases/latest | jq -r '.assets[] | select(.name | endswith(".tar.zst.sha256")) | .browser_download_url')
 
 # Define the filenames for the downloaded files
 sha256_file="$(basename "$sha256_url")"
